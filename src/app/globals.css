@@ -1,26 +1,152 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-nw-black: #0A0A0A;
+  --color-nw-graphite: #5C5C5C;
+  --color-nw-acid: #FF3800;
+  --color-nw-bone: #F4F4F0;
+  --color-nw-white: #FFFFFF;
+  --color-nw-emerald: #4af0c4;
+
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.dark {
+  --color-nw-bone: #0A0A0A;
+  --color-nw-graphite: #F4F4F0;
+  --color-nw-black: #FFFFFF;
+  --color-nw-white: #1A1A1A;
+  --color-nw-acid: #FF3800;
 }
+
+
+:root {
+  --nw-black: #0A0A0A;
+  --nw-graphite: #5C5C5C;
+  --nw-acid: #FF3800;
+  --nw-bone: #F4F4F0;
+  --nw-white: #FFFFFF;
+}
+
+
+@layer base {
+  body {
+    @apply bg-nw-bone text-nw-black font-body antialiased overflow-x-hidden;
+  }
+
+  .selection-acid {
+    @apply selection:bg-nw-acid selection:text-white;
+  }
+}
+
+@layer utilities {
+  .track-tighter { letter-spacing: -0.04em; }
+  .track-tight { letter-spacing: -0.02em; }
+  .track-widest { letter-spacing: 0.1em; }
+  .track-tightest { letter-spacing: -0.06em; }
+
+
+
+  .bg-noise {
+    @apply fixed inset-0 z-50 pointer-events-none opacity-[0.04];
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  .bg-tech-grid {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(92, 92, 92, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(92, 92, 92, 0.08) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  }
+
+  .grid-node {
+    animation: pulse-node 4s infinite alternate ease-in-out;
+  }
+
+  @keyframes pulse-node {
+    0% { opacity: 0.2; transform: scale(1); }
+    100% { opacity: 0.8; transform: scale(1.5); fill: var(--color-nw-acid); }
+
+  }
+
+  .marquee-container {
+    @apply flex w-[200%] animate-marquee;
+  }
+
+  .reveal {
+    @apply opacity-0 translate-y-[30px] transition-all duration-[0.8s];
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.active {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .draw-line {
+    @apply w-0 transition-[width] duration-[1s];
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .draw-line.active {
+    @apply w-full;
+  }
+
+  .draw-line-y {
+    @apply h-0 transition-[height] duration-[1.5s];
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .draw-line-y.active {
+    @apply h-full;
+  }
+
+  .dash-anim {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card:hover .dash-anim {
+    stroke-dashoffset: 0;
+  }
+
+  .scramble:hover {
+    @apply text-nw-acid;
+    text-shadow: 2px 0 0 rgba(255,56,0,0.5), -2px 0 0 rgba(10,10,10,0.5);
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+  }
+
+  .clip-button {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  }
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { @apply bg-nw-bone; }
+::-webkit-scrollbar-thumb { @apply bg-nw-graphite; }
+
+

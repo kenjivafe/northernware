@@ -1,0 +1,709 @@
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantis | Compound Your Legacy</title>
+<!-- Fonts: Space Grotesk (Display), Inter (Heading/Body), JetBrains Mono (Accent) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Iconify -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+q_black: '#0A0A0A',
+q_graphite: '#5C5C5C',
+q_acid: '#FF3800',
+q_bone: '#F4F4F0',
+q_white: '#FFFFFF',
+},
+fontFamily: {
+display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+body: ['"Inter"', 'sans-serif'],
+mono: ['"JetBrains Mono"', 'monospace'],
+},
+transitionTimingFunction: {
+'swiss': 'cubic-bezier(0.16, 1, 0.3, 1)',
+}
+}
+}
+}
+</script>
+<style>
+/* Typography overrides & tracking */
+.track-tighter { letter-spacing: -0.04em; }
+.track-tight { letter-spacing: -0.02em; }
+.track-widest { letter-spacing: 0.1em; }
+/* Noise Overlay */
+.bg-noise {
+position: fixed;
+inset: 0;
+z-index: 50;
+pointer-events: none;
+opacity: 0.04;
+mix-blend-mode: multiply;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+.dark-section .bg-noise {
+opacity: 0.08;
+mix-blend-mode: color-dodge;
+}
+/* Geometric Cut Button */
+.clip-button {
+clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+}
+/* WebGL Alternative: CSS Technical Grid */
+.bg-tech-grid {
+background-size: 40px 40px;
+background-image:
+linear-gradient(to right, rgba(92, 92, 92, 0.08) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(92, 92, 92, 0.08) 1px, transparent 1px);
+mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+-webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+/* Pulse nodes for grid */
+.grid-node {
+animation: pulse-node 4s infinite alternate ease-in-out;
+}
+@keyframes pulse-node {
+0% { opacity: 0.2; transform: scale(1); }
+100% { opacity: 0.8; transform: scale(1.5); fill: #FF3800; }
+}
+/* Marquee Animation */
+.marquee-container {
+display: flex;
+width: 200%;
+animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+/* Scroll Reveal Utility */
+.reveal {
+opacity: 0;
+transform: translateY(30px);
+transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+opacity: 1;
+transform: translateY(0);
+}
+/* Draw Line Animation */
+.draw-line {
+width: 0;
+transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.draw-line.active {
+width: 100%;
+}
+.draw-line-y {
+height: 0;
+transition: height 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.draw-line-y.active {
+height: 100%;
+}
+/* Abstract Chart Animation */
+.dash-anim {
+stroke-dasharray: 1000;
+stroke-dashoffset: 1000;
+transition: stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card:hover .dash-anim {
+stroke-dashoffset: 0;
+}
+/* Kinetic Scramble Text */
+.scramble:hover {
+color: #FF3800;
+text-shadow: 2px 0 0 rgba(255,56,0,0.5), -2px 0 0 rgba(10,10,10,0.5);
+animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
+@keyframes glitch {
+0% { transform: translate(0) }
+20% { transform: translate(-2px, 2px) }
+40% { transform: translate(-2px, -2px) }
+60% { transform: translate(2px, 2px) }
+80% { transform: translate(2px, -2px) }
+100% { transform: translate(0) }
+}
+/* Hidden Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #F4F4F0; }
+::-webkit-scrollbar-thumb { background: #5C5C5C; }
+</style><!-- aura-ga4-start -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-2M6V79H761"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-2M6V79H761');
+</script>
+<!-- aura-ga4-end -->
+</head>
+<body class="bg-q_bone text-q_black font-body antialiased selection:bg-q_acid selection:text-q_white overflow-x-hidden">
+
+    <!-- Accoutrement: Noise Overlay -->
+    <div class="bg-noise"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-40 bg-q_bone/90 backdrop-blur-md border-b border-q_graphite/20 transition-all duration-300">
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto px-[clamp(1.5rem,5vw,4rem)] h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="font-display font-semibold text-[clamp(1.25rem,2vw,1.5rem)] track-tighter uppercase flex items-center gap-2 group">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-q_black group-hover:text-q_acid transition-colors duration-300">
+                    <path d="M2 22L12 2L22 22H17L12 12L7 22H2Z" fill="currentColor"></path>
+                </svg>
+                Quantis
+            </a>
+
+            <!-- Links -->
+            <div class="hidden md:flex items-center gap-8 font-mono text-xs uppercase track-widest text-q_graphite">
+                <a href="#thesis" class="hover:text-q_black transition-colors">Thesis</a>
+                <a href="#performance" class="hover:text-q_black transition-colors">Performance</a>
+                <a href="#allocation" class="hover:text-q_black transition-colors">Allocation</a>
+                <a href="#insights" class="hover:text-q_black transition-colors">Insights</a>
+            </div>
+
+            <!-- CTA -->
+            <a href="#onboarding" class="hidden sm:inline-block relative px-[clamp(1.5rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] font-mono font-medium text-xs uppercase track-widest text-q_bone bg-q_black clip-button overflow-hidden group transition-all duration-300 hover:bg-q_acid">
+                <span class="relative z-10">Initiate Strategy</span>
+            </a>
+
+            <!-- Mobile Menu Icon -->
+            <button class="md:hidden text-q_black text-2xl">
+                <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5"></iconify-icon>
+            </button>
+        </div>
+    </nav>
+
+    <!-- [SEC.00_INDEX] HERO -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- WebGL Simulated Background -->
+        <div class="absolute inset-0 bg-tech-grid opacity-50 z-0 pointer-events-none"></div>
+        <svg class="absolute inset-0 w-full h-full z-0 opacity-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Abstract Data Nodes -->
+            <circle cx="20%" cy="30%" r="2" fill="#5C5C5C" class="grid-node" style="animation-delay: 0s"></circle>
+            <circle cx="80%" cy="40%" r="2" fill="#5C5C5C" class="grid-node" style="animation-delay: 1s"></circle>
+            <circle cx="60%" cy="70%" r="2" fill="#5C5C5C" class="grid-node" style="animation-delay: 2s"></circle>
+            <circle cx="30%" cy="80%" r="2" fill="#5C5C5C" class="grid-node" style="animation-delay: 0.5s"></circle>
+            <line x1="20%" y1="30%" x2="80%" y2="40%" stroke="#5C5C5C" stroke-width="0.5" stroke-dasharray="2 2"></line>
+            <line x1="80%" y1="40%" x2="60%" y2="70%" stroke="#5C5C5C" stroke-width="0.5" stroke-dasharray="2 2"></line>
+            <line x1="60%" y1="70%" x2="30%" y2="80%" stroke="#5C5C5C" stroke-width="0.5" stroke-dasharray="2 2"></line>
+            <line x1="30%" y1="80%" x2="20%" y2="30%" stroke="#5C5C5C" stroke-width="0.5" stroke-dasharray="2 2"></line>
+        </svg>
+
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto px-[clamp(1.5rem,5vw,4rem)] w-full relative z-10 grid grid-cols-12 gap-[clamp(1.5rem,3vw,2.5rem)]">
+            <!-- Left Content: 8 Columns -->
+            <div class="col-span-12 lg:col-span-8 reveal">
+                <h1 class="font-display font-semibold text-[clamp(3rem,7vw,6.5rem)] leading-[0.9] track-tighter text-q_black mb-[clamp(1.5rem,3vw,2.5rem)] uppercase">
+                    Outperform<br>The Index.<br>
+                    <span class="text-q_graphite">Protect The Principal.</span>
+                </h1>
+                
+                <p class="font-body text-[clamp(1rem,1.2vw,1.125rem)] leading-relaxed text-q_graphite max-w-[55ch] mb-[clamp(2.5rem,5vw,4rem)]">
+                    Institutional-grade asset management built for uncompromising growth. We architect high-yield portfolios that weather volatility.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-6">
+                    <a href="#onboarding" class="relative px-[clamp(1.5rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] font-mono font-medium text-sm md:text-base uppercase track-widest text-q_bone bg-q_acid clip-button overflow-hidden group transition-all duration-300 hover:bg-q_black hover:-translate-y-1">
+                        Secure Your Allocation
+                    </a>
+                    <a href="#performance" class="font-mono text-xs uppercase track-widest text-q_black border-b border-q_black pb-1 hover:text-q_acid hover:border-q_acid transition-colors duration-300">
+                        Examine Historical Yields
+                    </a>
+                </div>
+
+                <div class="mt-[clamp(3rem,6vw,5rem)] flex items-center gap-4 border-t border-q_graphite/20 pt-6">
+                    <iconify-icon icon="solar:shield-check-linear" class="text-q_acid text-2xl" stroke-width="1.5"></iconify-icon>
+                    <p class="font-mono text-xs uppercase track-widest text-q_graphite">
+                        Fiduciary duty bound. $4.2B AUM. No hidden layers.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Content: 4 Columns (Live Data Simulation) -->
+            <div class="hidden lg:flex col-span-4 flex-col justify-end pb-12 reveal" style="transition-delay: 0.2s">
+                <div class="border-l border-q_graphite/20 pl-8 space-y-8">
+                    <div>
+                        <div class="font-mono text-xs uppercase track-widest text-q_graphite mb-2">Live Modeled ROI (YTD)</div>
+                        <div class="font-display font-semibold text-[clamp(2rem,3vw,3rem)] track-tighter text-q_acid flex items-baseline gap-1">
+                            +<span class="counter" data-target="18.42">0.00</span>%
+                            <span class="w-2 h-2 rounded-full bg-q_acid animate-pulse mb-4"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-mono text-xs uppercase track-widest text-q_graphite mb-2">System Status</div>
+                        <div class="font-mono text-sm text-q_black flex items-center gap-2">
+                            <iconify-icon icon="solar:server-square-linear" class="text-q_acid" stroke-width="1.5"></iconify-icon>
+                            Algorithmic Deployment Active
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SEC.01_TICKER] SOCIAL PROOF BAR -->
+    <div class="w-full bg-q_black border-y border-q_graphite/30 overflow-hidden py-3">
+        <div class="marquee-container font-mono text-xs uppercase track-widest text-q_bone">
+            <!-- Duplicated content for infinite scroll -->
+            <div class="flex-shrink-0 flex items-center gap-12 px-6">
+                <span>// AUM: $4.2B+</span>
+                <span>// Q3 YIELD: <span class="text-q_acid">+12.4%</span></span>
+                <span>// INSTITUTIONS TRUSTED: 148</span>
+                <span>// ACTIVE STRATEGIES: 12</span>
+                <span>// SHARPE RATIO: 2.1</span>
+                <span>// AUM: $4.2B+</span>
+                <span>// Q3 YIELD: <span class="text-q_acid">+12.4%</span></span>
+                <span>// INSTITUTIONS TRUSTED: 148</span>
+                <span>// ACTIVE STRATEGIES: 12</span>
+                <span>// SHARPE RATIO: 2.1</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- [SEC.02_THESIS] PROBLEM AGITATION -->
+    <section id="thesis" class="py-[clamp(5rem,10vw,10rem)] relative">
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto px-[clamp(1.5rem,5vw,4rem)] grid grid-cols-12 gap-[clamp(1.5rem,3vw,2.5rem)] relative">
+            
+            <!-- Accoutrement: Vertical line -->
+            <div class="absolute left-[clamp(1.5rem,5vw,4rem)] top-0 bottom-0 w-[1px] bg-q_graphite/20 hidden lg:block">
+                <div class="w-full bg-q_acid draw-line-y scroll-trigger"></div>
+            </div>
+
+            <!-- Left 4 Cols: Marker -->
+            <div class="col-span-12 lg:col-span-4 lg:pl-12 reveal">
+                <div class="font-mono text-[10px] md:text-xs uppercase track-widest text-q_graphite mb-6 flex items-center gap-4 before:content-[''] before:w-8 before:h-[1px] before:bg-q_acid">
+                    [SEC.01_THESIS]
+                </div>
+            </div>
+
+            <!-- Right 8 Cols: Content -->
+            <div class="col-span-12 lg:col-span-8 reveal" style="transition-delay: 0.1s">
+                <h2 class="font-display font-semibold text-[clamp(2rem,5vw,4rem)] leading-[1.1] track-tight text-q_black mb-[clamp(1.5rem,3vw,2.5rem)] max-w-[20ch]">
+                    The 60/40 Portfolio is <span class="scramble inline-block cursor-crosshair transition-colors duration-200">Dead Weight.</span>
+                </h2>
+                <div class="w-full h-[1px] bg-q_graphite/20 mb-[clamp(1.5rem,3vw,2.5rem)]">
+                    <div class="h-full bg-q_graphite draw-line scroll-trigger"></div>
+                </div>
+                <p class="font-body text-[clamp(1rem,1.2vw,1.125rem)] leading-relaxed text-q_graphite max-w-[55ch]">
+                    Inflation erodes cash. Equities face unprecedented volatility. Traditional asset allocation is designed to <span class="scramble inline-block cursor-crosshair transition-colors duration-200">fail slowly.</span> You need a mathematically superior edge.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SEC.03_INFRASTRUCTURE] DASHBOARD PREVIEW -->
+    <section id="infrastructure" class="py-[clamp(5rem,10vw,10rem)] bg-q_white border-y border-q_graphite/20 overflow-hidden relative group">
+        <!-- Spotlight Glow Effect (CSS fallback for mouse tracking) -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-q_bone/50 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"></div>
+
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto pl-[clamp(1.5rem,5vw,4rem)] grid grid-cols-12 items-center relative z-10">
+            <!-- Text Left -->
+            <div class="col-span-12 lg:col-span-4 pr-[clamp(1.5rem,5vw,4rem)] pb-12 lg:pb-0 reveal">
+                <div class="font-mono text-[10px] md:text-xs uppercase track-widest text-q_graphite mb-6 flex items-center gap-4 before:content-[''] before:w-8 before:h-[1px] before:bg-q_acid">
+                    [SEC.02_INFRASTRUCTURE]
+                </div>
+                <h2 class="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] track-tight text-q_black mb-6">
+                    Unprecedented Signal Clarity.
+                </h2>
+                <p class="font-body text-[clamp(1rem,1.2vw,1.125rem)] leading-relaxed text-q_graphite mb-8">
+                    Monitor real-time capital deployment, stress-test your portfolio against macro events, and view tax-harvesting opportunities with granular precision.
+                </p>
+                <div class="flex items-center gap-4 font-mono text-xs uppercase track-widest text-q_black">
+                    <iconify-icon icon="solar:programming-linear" class="text-q_acid text-xl" stroke-width="1.5"></iconify-icon>
+                    Proprietary Interface
+                </div>
+            </div>
+
+            <!-- UI Preview Right (Bleeding edge) -->
+            <div class="col-span-12 lg:col-span-8 reveal" style="transition-delay: 0.2s">
+                <div class="bg-q_bone border-t border-l border-q_graphite/20 p-8 shadow-2xl translate-x-[5%] lg:translate-x-0 relative">
+                    <!-- Fake Dashboard Header -->
+                    <div class="flex justify-between items-center mb-8 border-b border-q_graphite/20 pb-4">
+                        <div class="font-mono text-xs text-q_black uppercase track-widest">Client Portal / Overview</div>
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 bg-q_graphite rounded-full"></div>
+                            <div class="w-3 h-3 bg-q_graphite rounded-full"></div>
+                            <div class="w-3 h-3 bg-q_acid rounded-full"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fake Dashboard Content -->
+                    <div class="grid grid-cols-2 gap-6">
+                        <!-- Heatmap Block -->
+                        <div class="bg-q_white border border-q_graphite/20 p-6">
+                            <div class="font-mono text-[10px] text-q_graphite uppercase track-widest mb-4">Sector Heatmap</div>
+                            <div class="grid grid-cols-4 gap-1 h-32">
+                                <div class="bg-q_black/90"></div><div class="bg-q_black/80"></div><div class="bg-q_acid/80"></div><div class="bg-q_black/70"></div>
+                                <div class="bg-q_black/60"></div><div class="bg-q_acid/60"></div><div class="bg-q_black/50"></div><div class="bg-q_black/80"></div>
+                                <div class="bg-q_acid"></div><div class="bg-q_black/40"></div><div class="bg-q_black/70"></div><div class="bg-q_black/90"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sparkline Block -->
+                        <div class="bg-q_white border border-q_graphite/20 p-6 flex flex-col justify-between">
+                            <div class="font-mono text-[10px] text-q_graphite uppercase track-widest mb-2">Alpha Generation</div>
+                            <div class="font-display font-medium text-3xl text-q_black">+$840M</div>
+                            <svg class="w-full h-16 mt-4" viewBox="0 0 100 30" preserveAspectRatio="none">
+                                <path d="M0,30 L10,25 L20,28 L30,15 L40,20 L50,5 L60,10 L70,2 L80,8 L90,0 L100,5" fill="none" stroke="#FF3800" stroke-width="1.5" class="dash-anim"></path>
+                                <path d="M0,30 L10,25 L20,28 L30,15 L40,20 L50,5 L60,10 L70,2 L80,8 L90,0 L100,5 L100,30 Z" fill="url(#grad)" opacity="0.2"></path>
+                                <defs>
+                                    <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#FF3800"></stop>
+                                        <stop offset="100%" stop-color="#FF3800" stop-opacity="0"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+
+                        <!-- Data Grid Block -->
+                        <div class="col-span-2 bg-q_white border border-q_graphite/20 p-6">
+                            <div class="font-mono text-[10px] text-q_graphite uppercase track-widest mb-4 border-b border-q_graphite/20 pb-2 flex justify-between">
+                                <span>Asset</span><span>Weight</span><span>Variance</span>
+                            </div>
+                            <div class="space-y-3 font-mono text-xs">
+                                <div class="flex justify-between items-center"><span class="text-q_black">Global Sovereign Debt</span><span class="text-q_graphite">42.5%</span><span class="text-q_acid">+1.2%</span></div>
+                                <div class="w-full h-[1px] bg-q_graphite/10"></div>
+                                <div class="flex justify-between items-center"><span class="text-q_black">Distressed Tech Eq.</span><span class="text-q_graphite">28.0%</span><span class="text-q_black">-0.4%</span></div>
+                                <div class="w-full h-[1px] bg-q_graphite/10"></div>
+                                <div class="flex justify-between items-center"><span class="text-q_black">Market-Neutral Algo</span><span class="text-q_graphite">29.5%</span><span class="text-q_acid">+3.8%</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SEC.04_METRICS] PERFORMANCE COUNTERS -->
+    <section id="performance" class="py-[clamp(5rem,10vw,10rem)] bg-q_bone">
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto px-[clamp(1.5rem,5vw,4rem)]">
+            
+            <div class="mb-[clamp(3rem,6vw,6rem)] max-w-[65ch] reveal">
+                <div class="font-mono text-[10px] md:text-xs uppercase track-widest text-q_graphite mb-6 flex items-center gap-4 before:content-[''] before:w-8 before:h-[1px] before:bg-q_acid">
+                    [SEC.03_METRICS]
+                </div>
+                <h2 class="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] track-tight text-q_black mb-4">
+                    Engineered for Absolute Return.
+                </h2>
+                <p class="font-body text-[clamp(1rem,1.2vw,1.125rem)] text-q_graphite">
+                    Our algorithmic and human-led models identify asymmetrical risk-reward scenarios globally.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-l border-q_graphite/20 reveal" style="transition-delay: 0.2s">
+                <!-- Card 1 -->
+                <div class="border-b border-r border-q_graphite/20 bg-q_white p-[clamp(2rem,4vw,3.5rem)] hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-q_acid hover:relative hover:z-10 transition-all duration-500 ease-swiss group card">
+                    <div class="font-display font-medium text-[clamp(3rem,5vw,4.5rem)] track-tighter text-q_black mb-2 flex items-baseline">
+                        <span class="counter" data-target="24.8">0.0</span>%
+                    </div>
+                    <div class="w-12 h-[1px] bg-q_graphite/50 mb-4 group-hover:bg-q_acid transition-colors duration-300"></div>
+                    <div class="font-mono text-xs uppercase track-widest text-q_graphite group-hover:text-q_black transition-colors duration-300">5-Year Annualized</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="border-b border-r border-q_graphite/20 bg-q_white p-[clamp(2rem,4vw,3.5rem)] hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-q_acid hover:relative hover:z-10 transition-all duration-500 ease-swiss group card">
+                    <div class="font-display font-medium text-[clamp(3rem,5vw,4.5rem)] track-tighter text-q_black mb-2 flex items-baseline">
+                        <span class="counter" data-target="0.03">0.00</span>
+                    </div>
+                    <div class="w-12 h-[1px] bg-q_graphite/50 mb-4 group-hover:bg-q_acid transition-colors duration-300"></div>
+                    <div class="font-mono text-xs uppercase track-widest text-q_graphite group-hover:text-q_black transition-colors duration-300">Beta to S&amp;P 500</div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="border-b border-r border-q_graphite/20 bg-q_white p-[clamp(2rem,4vw,3.5rem)] hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-q_acid hover:relative hover:z-10 transition-all duration-500 ease-swiss group card">
+                    <div class="font-display font-medium text-[clamp(3rem,5vw,4.5rem)] track-tighter text-q_black mb-2 flex items-baseline">
+                        $<span class="counter" data-target="840" data-decimals="0">0</span>M
+                    </div>
+                    <div class="w-12 h-[1px] bg-q_graphite/50 mb-4 group-hover:bg-q_acid transition-colors duration-300"></div>
+                    <div class="font-mono text-xs uppercase track-widest text-q_graphite group-hover:text-q_black transition-colors duration-300">Alpha Generated (YTD)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SEC.05_STRATEGIES] ALLOCATION GRID -->
+    <section id="allocation" class="py-[clamp(5rem,10vw,10rem)]">
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto px-[clamp(1.5rem,5vw,4rem)]">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-[clamp(3rem,6vw,6rem)] reveal">
+                <div>
+                    <div class="font-mono text-[10px] md:text-xs uppercase track-widest text-q_graphite mb-6 flex items-center gap-4 before:content-[''] before:w-8 before:h-[1px] before:bg-q_acid">
+                        [SEC.04_STRATEGIES]
+                    </div>
+                    <h2 class="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] track-tight text-q_black mb-4">
+                        Bespoke Deployment Vectors.
+                    </h2>
+                    <p class="font-body text-[clamp(1rem,1.2vw,1.125rem)] text-q_graphite max-w-[50ch]">
+                        Select from our core institutional frameworks, adapted for the aggressive private wealth builder.
+                    </p>
+                </div>
+                <iconify-icon icon="solar:chart-square-linear" class="text-4xl text-q_graphite/50" stroke-width="1"></iconify-icon>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-[clamp(1.5rem,3vw,2.5rem)]">
+                
+                <!-- Strategy 1 -->
+                <div class="border border-q_graphite/20 bg-q_white p-[clamp(2rem,4vw,3.5rem)] hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-q_acid transition-all duration-400 ease-swiss group card reveal">
+                    <div class="flex justify-between items-start mb-16">
+                        <div class="font-mono text-xs uppercase track-widest text-q_graphite group-hover:text-q_acid transition-colors">01.</div>
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <path d="M5 20H15L20 5L25 35L30 20H35" stroke="#0A0A0A" stroke-width="1.5" class="dash-anim"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-medium text-2xl text-q_black mb-4 track-tight">Quantis Alpha</h3>
+                    <p class="font-body text-q_graphite text-sm md:text-base leading-relaxed">
+                        Market-neutral algorithmic equity trading utilizing high-frequency sentiment analysis.
+                    </p>
+                </div>
+
+                <!-- Strategy 2 -->
+                <div class="border border-q_graphite/20 bg-q_white p-[clamp(2rem,4vw,3.5rem)] hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-q_acid transition-all duration-400 ease-swiss group card reveal" style="transition-delay: 0.1s">
+                    <div class="flex justify-between items-start mb-16">
+                        <div class="font-mono text-xs uppercase track-widest text-q_graphite group-hover:text-q_acid transition-colors">02.</div>
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="15" stroke="#0A0A0A" stroke-width="1.5" stroke-dasharray="4 4" class="dash-anim"></circle>
+                            <path d="M10 20H30" stroke="#0A0A0A" stroke-width="1.5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-medium text-2xl text-q_black mb-4 track-tight">Global Macro</h3>
+                    <p class="font-body text-q_graphite text-sm md:text-base leading-relaxed">
+                        Exploiting inefficiencies in sovereign debt and FX through geopolitical threat modeling.
+                    </p>
+                </div>
+
+                <!-- Strategy 3 -->
+                <div class="border border-q_graphite/20 bg-q_white p-[clamp(2rem,4vw,3.5rem)] hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-q_acid transition-all duration-400 ease-swiss group card reveal" style="transition-delay: 0.2s">
+                    <div class="flex justify-between items-start mb-16">
+                        <div class="font-mono text-xs uppercase track-widest text-q_graphite group-hover:text-q_acid transition-colors">03.</div>
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect x="5" y="15" width="10" height="20" stroke="#0A0A0A" stroke-width="1.5" class="dash-anim"></rect>
+                            <rect x="25" y="5" width="10" height="30" stroke="#0A0A0A" stroke-width="1.5" class="dash-anim"></rect>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-medium text-2xl text-q_black mb-4 track-tight">Private Credit</h3>
+                    <p class="font-body text-q_graphite text-sm md:text-base leading-relaxed">
+                        High-yield, collateralized lending to mid-market technology infrastructure firms.
+                    </p>
+                </div>
+
+                <!-- Strategy 4 -->
+                <div class="border border-q_graphite/20 bg-q_white p-[clamp(2rem,4vw,3.5rem)] hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-q_acid transition-all duration-400 ease-swiss group card reveal" style="transition-delay: 0.3s">
+                    <div class="flex justify-between items-start mb-16">
+                        <div class="font-mono text-xs uppercase track-widest text-q_graphite group-hover:text-q_acid transition-colors">04.</div>
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <path d="M5 35L35 5M35 5H15M35 5V25" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="bevel" class="dash-anim"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-medium text-2xl text-q_black mb-4 track-tight">Venture Secondary</h3>
+                    <p class="font-body text-q_graphite text-sm md:text-base leading-relaxed">
+                        Acquiring distressed tech equity at deep discounts from early liquidity seekers.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- [SEC.06_AUTHORITY] FEATURED INSIGHT -->
+    <section id="insights" class="py-[clamp(5rem,10vw,10rem)] bg-q_black text-q_white relative overflow-hidden dark-section">
+        <!-- Container Specific Noise -->
+        <div class="bg-noise absolute inset-0"></div>
+        
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto px-[clamp(1.5rem,5vw,4rem)] relative z-10 grid grid-cols-12">
+            
+            <div class="col-span-12 lg:col-span-8 lg:col-start-3 text-center flex flex-col items-center reveal">
+                <div class="font-mono text-[10px] md:text-xs uppercase track-widest text-q_graphite mb-8 flex items-center justify-center gap-4 before:content-[''] before:w-8 before:h-[1px] before:bg-q_white after:content-[''] after:w-8 after:h-[1px] after:bg-q_white">
+                    Intelligence Report
+                </div>
+                
+                <h2 class="font-display font-semibold text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] track-tighter mb-6">
+                    Read our Q4 Macroeconomic Threat Assessment.
+                </h2>
+                
+                <p class="font-body text-[clamp(1rem,1.2vw,1.125rem)] text-q_graphite max-w-[55ch] mb-12">
+                    How we are re-allocating $1.2B ahead of upcoming central bank liquidity drains.
+                </p>
+
+                <a href="#" class="relative px-[clamp(1.5rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] font-mono font-medium text-sm md:text-base uppercase track-widest text-q_black bg-q_white clip-button overflow-hidden group transition-all duration-300 hover:bg-q_acid hover:text-q_white focus:ring-2 focus:ring-q_acid focus:ring-offset-2 focus:ring-offset-q_black">
+                    <span class="relative z-10 flex items-center gap-3">
+                        Download Intelligence
+                        <iconify-icon icon="solar:download-minimalistic-linear" stroke-width="1.5"></iconify-icon>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SEC.07_ONBOARDING] FINAL CONVERSION -->
+    <section id="onboarding" class="py-[clamp(8rem,15vw,15rem)] relative overflow-hidden">
+        <!-- Intense WebGL Alternative Background -->
+        <div class="absolute inset-0 bg-tech-grid opacity-70 z-0 pointer-events-none" style="background-size: 20px 20px;"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-q_bone/50 to-q_bone z-0"></div>
+
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto px-[clamp(1.5rem,5vw,4rem)] relative z-10 text-center flex flex-col items-center reveal">
+            
+            <h2 class="font-display font-semibold text-[clamp(3rem,8vw,7rem)] leading-[0.9] track-tighter text-q_black mb-6 uppercase">
+                Stop Leaving<br><span class="text-q_acid">Alpha</span> On The Table.
+            </h2>
+            
+            <p class="font-body text-[clamp(1rem,1.2vw,1.25rem)] text-q_graphite max-w-[50ch] mb-10">
+                Capacity for our Q1 fund vintage is strictly limited. Initiate dialogue with our allocation directors today.
+            </p>
+
+            <a href="#" class="relative px-[clamp(2rem,4vw,3rem)] py-[clamp(1rem,2vw,1.5rem)] font-mono font-semibold text-sm md:text-lg uppercase track-widest text-q_bone bg-q_black clip-button overflow-hidden group transition-all duration-300 hover:bg-q_acid hover:scale-105 active:scale-95 shadow-2xl shadow-q_acid/20">
+                <span class="relative z-10">Request Prospectus &amp; Allocation</span>
+            </a>
+
+            <div class="mt-8 font-mono text-[10px] uppercase track-widest text-q_graphite flex items-center gap-2">
+                <iconify-icon icon="solar:info-circle-linear" stroke-width="1.5"></iconify-icon>
+                Minimum deployment: $500,000. Accredited investors only.
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-q_graphite/20 bg-q_bone pt-20 relative overflow-hidden">
+        <div class="max-w-[clamp(70rem,95vw,100rem)] mx-auto px-[clamp(1.5rem,5vw,4rem)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-32 relative z-10">
+            
+            <!-- Col 1 -->
+            <div class="space-y-6">
+                <a href="#" class="font-display font-semibold text-2xl track-tighter uppercase flex items-center gap-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-q_black">
+                        <path d="M2 22L12 2L22 22H17L12 12L7 22H2Z" fill="currentColor"></path>
+                    </svg>
+                    Quantis
+                </a>
+                <p class="font-mono text-xs uppercase track-widest text-q_graphite max-w-[200px]">
+                    Compound Your Legacy. Eliminate the Noise.
+                </p>
+            </div>
+
+            <!-- Col 2 -->
+            <div>
+                <h4 class="font-mono text-xs uppercase track-widest text-q_black mb-6">Strategies</h4>
+                <ul class="space-y-4 font-body text-sm text-q_graphite">
+                    <li><a href="#" class="hover:text-q_acid transition-colors">Quantis Alpha</a></li>
+                    <li><a href="#" class="hover:text-q_acid transition-colors">Global Macro</a></li>
+                    <li><a href="#" class="hover:text-q_acid transition-colors">Private Credit</a></li>
+                    <li><a href="#" class="hover:text-q_acid transition-colors">Venture Secondary</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3 -->
+            <div>
+                <h4 class="font-mono text-xs uppercase track-widest text-q_black mb-6">Portal</h4>
+                <ul class="space-y-4 font-body text-sm text-q_graphite">
+                    <li><a href="#" class="hover:text-q_acid transition-colors">Client Login</a></li>
+                    <li><a href="#" class="hover:text-q_acid transition-colors">LP Dashboard</a></li>
+                    <li><a href="#" class="hover:text-q_acid transition-colors">Secure Upload</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4 -->
+            <div>
+                <h4 class="font-mono text-xs uppercase track-widest text-q_black mb-6">Intelligence</h4>
+                <p class="font-body text-sm text-q_graphite mb-4">Subscribe to our Weekly Macro Thesis.</p>
+                <form class="flex items-center border-b border-q_graphite/40 pb-2 group focus-within:border-q_acid transition-colors">
+                    <input type="email" placeholder="ENTER EMAIL" class="bg-transparent border-none outline-none font-mono text-xs uppercase track-widest text-q_black placeholder:text-q_graphite w-full" required="">
+                    <button type="submit" class="text-q_black group-hover:text-q_acid transition-colors">
+                        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-xl"></iconify-icon>
+                    </button>
+                </form>
+                
+                <div class="mt-12 space-y-2 font-mono text-[10px] uppercase track-widest text-q_graphite">
+                    <a href="#" class="block hover:text-q_black">Form ADV</a>
+                    <a href="#" class="block hover:text-q_black">Privacy</a>
+                    <a href="#" class="block hover:text-q_black">Disclosures</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="relative z-10 border-t border-q_graphite/10 py-6 text-center font-mono text-[10px] uppercase track-widest text-q_graphite">
+            © Quantis Asset Management LLC 2026. All rights reserved.
+        </div>
+
+        <!-- Accoutrement: Massive Watermark -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/4 w-full text-center overflow-hidden pointer-events-none z-0">
+            <h1 class="font-display font-semibold text-[clamp(10rem,25vw,30rem)] leading-none track-tighter text-q_graphite opacity-5 select-none m-0 p-0">
+                QUANTIS
+            </h1>
+        </div>
+    </footer>
+
+    <!-- Minimal JS for Scroll Reveal & Counters (Accoutrements) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Reveal Observer
+            const revealElements = document.querySelectorAll('.reveal');
+            const lineElements = document.querySelectorAll('.draw-line, .draw-line-y');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Trigger lines inside revealed elements
+                        const lines = entry.target.querySelectorAll('.draw-line, .draw-line-y');
+                        lines.forEach(line => line.classList.add('active'));
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // Decimal Counter Observer
+            const counters = document.querySelectorAll('.counter');
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const finalValue = parseFloat(target.getAttribute('data-target'));
+                        const decimals = target.hasAttribute('data-decimals') ? parseInt(target.getAttribute('data-decimals')) : 2;
+                        const duration = 2000; // ms
+                        const start = performance.now();
+                        
+                        const updateCounter = (currentTime) => {
+                            const elapsed = currentTime - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            // Ease out cubic
+                            const easeProgress = 1 - Math.pow(1 - progress, 3);
+                            
+                            const currentVal = (finalValue * easeProgress).toFixed(decimals);
+                            target.innerText = currentVal;
+
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                target.innerText = finalValue.toFixed(decimals);
+                            }
+                        };
+                        
+                        requestAnimationFrame(updateCounter);
+                        observer.unobserve(target); // Run once
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => counterObserver.observe(counter));
+
+            // Navbar scroll effect
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add('bg-q_bone', 'border-q_graphite/20');
+                    nav.classList.remove('bg-q_bone/90', 'border-transparent');
+                } else {
+                    nav.classList.add('bg-q_bone/90', 'border-transparent');
+                    nav.classList.remove('bg-q_bone', 'border-q_graphite/20');
+                }
+            });
+        });
+    </script>
+
+</body></html>
