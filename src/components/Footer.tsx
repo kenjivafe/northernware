@@ -1,6 +1,14 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <footer className="border-t border-nw-graphite/20 bg-nw-black pt-20 relative overflow-hidden">
@@ -53,15 +61,22 @@ export default function Footer() {
           <form className="flex items-center border-b border-nw-bone/30 pb-3 group focus-within:border-nw-acid transition-colors">
             <input type="email" placeholder="dev@company.com" className="bg-transparent border-none outline-none font-mono text-xs text-nw-bone placeholder:text-nw-bone w-full" required />
             <button type="submit" className="text-nw-bone group-hover:text-nw-acid transition-colors">
-              <span className="iconify text-xl" data-icon="solar:arrow-right-linear"></span>
+              {mounted && <span className="iconify text-xl" data-icon="solar:arrow-right-linear"></span>}
             </button>
           </form>
           
           <div className="mt-10 flex gap-6">
-               <a href="#" className="text-nw-graphite hover:text-nw-acid transition-colors"><span className="iconify text-2xl" data-icon="solar:github-linear"></span></a>
-               <a href="#" className="text-nw-graphite hover:text-nw-acid transition-colors"><span className="iconify text-2xl" data-icon="solar:figma-linear"></span></a>
-               <a href="#" className="text-nw-graphite hover:text-nw-acid transition-colors"><span className="iconify text-2xl" data-icon="solar:link-linear"></span></a>
+                <a href="https://github.com/kenjivafe/northernware" target="_blank" rel="noopener noreferrer" className="text-nw-bone hover:text-nw-acid transition-colors">
+                  {mounted && <span className="iconify text-2xl" data-icon="simple-icons:github"></span>}
+                </a>
+                <a href="#" className="text-nw-bone hover:text-nw-acid transition-colors">
+                  {mounted && <span className="iconify text-2xl" data-icon="simple-icons:figma"></span>}
+                </a>
+                <a href="#" className="text-nw-bone hover:text-nw-acid transition-colors">
+                  {mounted && <span className="iconify text-2xl" data-icon="simple-icons:linkedin"></span>}
+                </a>
           </div>
+
         </div>
       </div>
 

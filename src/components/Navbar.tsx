@@ -69,8 +69,11 @@ export default function Navbar() {
 
 
           <button className="md:hidden text-nw-black text-2xl flex items-center">
-            <span className="iconify" data-icon="solar:hamburger-menu-linear" data-inline="false"></span>
+            {mounted && (
+              <span className="iconify" data-icon="solar:hamburger-menu-linear" data-inline="false"></span>
+            )}
           </button>
+
         </div>
 
       </div>
