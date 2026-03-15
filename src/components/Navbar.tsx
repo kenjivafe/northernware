@@ -39,7 +39,7 @@ export default function Navbar() {
             />
           </div>
           <span className="font-display font-bold text-[clamp(1.25rem,2vw,1.5rem)] track-tighter text-nw-black group-hover:text-nw-acid transition-colors duration-300">
-            northernware<span className="text-nw-acid">.ph</span>
+            northernware<span className="text-nw-acid">®</span>
           </span>
         </a>
 

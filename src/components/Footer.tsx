@@ -25,7 +25,7 @@ export default function Footer() {
               />
             </div>
             <span className="font-display font-bold text-2xl track-tightest text-nw-bone group-hover:text-nw-acid transition-colors duration-300">
-              northernware<span className="text-nw-acid">.ph</span>
+              northernware<span className="text-nw-acid">®</span>
             </span>
           </a>
 
