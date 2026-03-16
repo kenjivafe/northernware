@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/northernware-thumbnail.png",
+        url: "/northernware-thumbnail.jpg",
         width: 1200,
         height: 630,
         alt: "Northernware",
